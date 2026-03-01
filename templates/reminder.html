@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Medicine Reminder</title>
+</head>
+
+<body>
+
+<h1>Set Medicine Reminder</h1>
+
+<label>Set Medicine Time:</label>
+<input type="time" id="time">
+
+<br><br>
+
+<label>Enter Pill Stock:</label>
+<input type="number" id="stock">
+
+<br><br>
+
+<button onclick="setReminder()">Save</button>
+
+<h3 id="alert"></h3>
+
+<script>
+
+function setReminder(){
+
+let time = document.getElementById("time").value;
+
+setInterval(function(){
+
+let now = new Date();
+let current = now.getHours() + ":" + now.getMinutes();
+
+if(current == time){
+alert("Time to take your medicine!");
+document.getElementById("alert").innerHTML="Take your medicine now!";
+}
+
+},1000)
+
+}
+
+</script>
+
+<br><br>
+
+<a href="/">Go Back Home</a>
+
+</body>
+</html>

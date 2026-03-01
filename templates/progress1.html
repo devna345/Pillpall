@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Medicine Progress</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(to right,#a1c4fd,#c2e9fb);
+padding:20px;
+}
+
+.container{
+background:white;
+padding:20px;
+border-radius:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:10px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+button{
+padding:5px 10px;
+border:none;
+background:#4CAF50;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Medicine Progress</h1>
+
+<div class="container">
+
+<table>
+
+<tr>
+<th>Medicine</th>
+<th>Quantity</th>
+<th>Time</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+<tbody id="tableBody">
+
+</tbody>
+
+</table>
+
+<br>
+
+<h2>Total Medicines Taken: <span id="count">0</span></h2>
+
+</div>
+
+<script>
+
+let medicines=JSON.parse(localStorage.getItem("medicines")) || [];
+
+let table=document.getElementById("tableBody");
+
+let takenCount=0;
+
+function loadTable(){
+
+table.innerHTML="";
+
+takenCount=0;
+
+medicines.forEach((med,index)=>{
+
+if(med.taken==1){
+takenCount++;
+}
+
+let row=`
+
+<tr>
+
+<td>${med.name}</td>
+<td>${med.quantity}</td>
+<td>${med.time}</td>
+
+<td>${med.taken ? "Taken ✅":"Not Taken ❌"}</td>
+
+<td>
+<button onclick="markTaken(${index})">Taken</button>
+</td>
+
+</tr>
+
+`;
+
+table.innerHTML+=row;
+
+});
+
+document.getElementById("count").innerText=takenCount;
+
+}
+
+function markTaken(i){
+
+medicines[i].taken=1;
+
+localStorage.setItem("medicines",JSON.stringify(medicines));
+
+loadTable();
+
+}
+
+loadTable();
+
+</script>
+
+</body>
+</html>

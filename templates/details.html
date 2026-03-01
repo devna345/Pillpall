@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PillPall - Details</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(to right, #d8a2c6, #9face6);
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .container {
+            background: rgb(226, 162, 205);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input, select {
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .medicine-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .bottom-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #290c92;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #6b1717;
+        }
+
+        .add-btn {
+            background-color: #4CAF50;
+        }
+
+        .add-btn:hover {
+            background-color: #388E3C;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>User Details</h1>
+
+    <div class="container">
+
+        <input type="text" placeholder="User Name"><br>
+        <input type="number" placeholder="Age"><br>
+
+        <select>
+            <option>Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select><br>
+
+        <input type="number" placeholder="Phone Number"><br>
+
+        <h2>Medicine Details</h2>
+
+        <!-- Medicine Container -->
+        <div id="medicine-container">
+
+            <!-- First Medicine Row (default) -->
+            <div class="medicine-row">
+                <input type="text" placeholder="Medicine Name">
+                <input type="number" placeholder="Quantity">
+                <input type="time">
+            </div>
+
+        </div>
+
+        <!-- Add Medicine Button -->
+        <button class="add-btn" onclick="addMedicine()">+ Add Medicine</button>
+        <button onclick="window.location.href='progress1.html'">ok</button>
+       
+        <div class="bottom-buttons">
+            <a href="index.html">
+                <button>Home</button>
+            </a>
+            <a href="progress1.html">
+                <button>Progress</button>
+            </a>
+        </div>
+
+    </div>
+
+<script>
+    let count = 1;
+    const maxMedicines = 10;
+
+    function addMedicine() {
+        if (count >= maxMedicines) {
+            alert("Maximum 10 medicines allowed");
+            return;
+        }
+
+        const container = document.getElementById("medicine-container");
+
+        const div = document.createElement("div");
+        div.className = "medicine-row";
+
+        div.innerHTML = `
+            <input type="text" placeholder="Medicine Name">
+            <input type="number" placeholder="Quantity">
+            <input type="time">
+        `;
+
+        container.appendChild(div);
+        count++;
+    }
+</script>
+
+</body>
+</html>

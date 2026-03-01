@@ -1,17 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Progress</title>
+    <title>PillPall - Progress</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .medicine-card {
+            background: #f5f5f5;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+
+        .bottom-buttons {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        button {
+            padding: 8px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2196F3;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #1976D2;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Daily Progress</h1>
 
-    {% if med and med.taken_today %}
-        <h2>✅ Medicine Taken Today</h2>
-    {% else %}
-        <h2>❌ Medicine Not Taken Today</h2>
-    {% endif %}
+    <h1>Medicine Progress</h1>
 
-    <a href="/">Back to Home</a>
+    <div class="container">
+
+        <div id="medicineList"></div>
+
+        <!-- Bottom Buttons -->
+        <div class="bottom-buttons">
+            <a href="home.html">
+                <button>Home</button>
+            </a>
+
+            <a href="index.html">
+                <button>Details</button>
+            </a>
+        </div>
+
+    </div>
+
+<script>
+
+function loadMedicines() {
+
+    let medicines = JSON.parse(localStorage.getItem("medicines")) || [];
+    let medicineList = document.getElementById("medicineList");
+
+    if (medicines.length === 0) {
+        medicineList.innerHTML = "<p>No medicines added yet.</p>";
+        return;
+    }
+
+    medicines.forEach(function(med) {
+
+        let div = document.createElement("div");
+        div.className = "medicine-card";
+
+        div.innerHTML = `
+            <p><strong>Date:</strong> ${med.date}</p>
+            <p><strong>Medicine:</strong> ${med.name}</p>
+            <p><strong>Quantity:</strong> ${med.quantity}</p>
+            <p><strong>Time:</strong> ${med.time}</p>
+        `;
+
+        medicineList.appendChild(div);
+
+    });
+}
+
+window.onload = loadMedicines;
+
+</script>
+
 </body>
 </html>
