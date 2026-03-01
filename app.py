@@ -40,9 +40,10 @@ def second_reminder():
 # Home Page
 @app.route('/')
 def home():
-        return render_template('home.html')
+    return render_template('home.html')
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/details', methods=['GET', 'POST'])
 def index():
     med = Medicine.query.first()
 
@@ -59,7 +60,6 @@ def index():
 
         db.session.commit()
 
-        # Schedule reminder
         hour, minute = map(int, time.split(":"))
         scheduler.add_job(
             func=send_reminder,
@@ -68,9 +68,11 @@ def index():
             minute=minute
         )
 
-        return redirect(url_for('details'))
+        return redirect(url_for('progress'))
 
     return render_template('details.html', med=med)
+
+
 
 # Mark as taken
 @app.route('/taken')
